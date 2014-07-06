@@ -8,8 +8,9 @@
  * Controller of the test3App
  */
 
-app.controller('MainCtrl', function ($scope, ThreeEnv) {
+angular.module('test3App')
+.controller('MainCtrl', ['$scope', 'ThreeEnv0', function ($scope, ThreeEnv3) {
     
     $scope.text = 'Hello World!';
-    $scope.three = ThreeEnv.init(1);
-  });
+    $scope.three = ThreeEnv3.init();
+  }]);

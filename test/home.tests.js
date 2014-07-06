@@ -16,7 +16,8 @@ describe('MainCtrl', function(){
      it('should have variable text = "Hello World!"', function(){
         expect(scope.text).toBe('Hello World!');
     });
-	it('should return 2 from ThreeEnv', function(){
-	expect(scope.three).toBe(2);
+     it('should have width and height defined', function (){
+        var a = window.innerWidth;
+	expect(scope.three).toBe(a);
 });
 });
