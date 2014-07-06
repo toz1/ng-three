@@ -7,13 +7,9 @@
  * # MainCtrl
  * Controller of the test3App
  */
-angular.module('test3App')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+app.controller('MainCtrl', function ($scope, ThreeEnv) {
+    
     $scope.text = 'Hello World!';
-   // $scope.users = UserFactory.get();
+    $scope.three = ThreeEnv.init(1);
   });

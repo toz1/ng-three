@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('test3App', [
     'ngAnimate',
     'ngResource',
@@ -27,6 +27,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }).factory('UserFactory', function($resource){
-    return $resource('Users/users.json');
-});
+  });
