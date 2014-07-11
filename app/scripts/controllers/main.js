@@ -9,8 +9,8 @@
  */
 
 angular.module('test3App')
-.controller('MainCtrl', ['$scope', 'ThreeEnv0', function ($scope, ThreeEnv3) {
+.controller('MainCtrl', ['$scope', 'treeEnv', function ($scope, env) {
     
     $scope.text = 'Hello World!';
-    $scope.three = ThreeEnv3.init();
+    $scope.three = env.init();
   }]);
