@@ -7,12 +7,12 @@
  * # mainCanvas
  */
 angular.module('test3App')
-  .directive('mainCanvas', ['treeEnv',function (treeEnv) {
+  .directive('mainCanvas',['treeEnv', function (treeEnv1) {
     return {
       template: '<div></div>',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the mainCanvas directive ---- NEXT STEP ----- git commit this and write the main-canvas directive (and treeEnv');
+      link: function preLink(scope, element) {
+        element = treeEnv1.domElement;
       }
     };
   }]);
