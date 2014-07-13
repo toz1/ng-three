@@ -12,5 +12,4 @@ angular.module('test3App')
 .controller('MainCtrl', ['$scope', 'treeEnv', function ($scope, env) {
     
     $scope.text = 'Hello World!';
-    $scope.three = env.init();
   }]);
