@@ -8,21 +8,31 @@
  *
  * Main module of the application.
  */
+
 angular.module('test3App', [
     'ngAnimate',
     'ngResource',
-    'ngRoute'
-  ]).config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+    'ui.router'
+  ]).config(function ($stateProvider, $urlRouterProvider) {
+    console.log($stateProvider);
+
+    $stateProvider
+      .state('test', {
+            url: '/test'
+        })
+      .state('main', {
+        url: '/state',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        onEnter: function(){
+            console.log('entering main state');
+        }
       })
-      .when('/about', {
+      .state('about', {
+        url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
       });
+    $urlRouterProvider.otherwise('/');
+   // $locationProvider.html5Mode(true);
   });

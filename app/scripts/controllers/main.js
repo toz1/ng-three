@@ -9,7 +9,7 @@
  */
 
 angular.module('test3App')
-.controller('MainCtrl', ['$scope', 'treeEnv', function ($scope, env) {
-    
+.controller('MainCtrl', function ($scope) {
+    console.log('hello');
     $scope.text = 'Hello World!';
-  }]);
+  });

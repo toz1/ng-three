@@ -17,18 +17,26 @@ angular.module('test3App')
     console.log('renderer declared');
     console.log(renderer);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75,window.innerWidth / window.innerHeight,0.1,1000);
-    scene.add(camera);
-    renderer.setClearColor(0xaa7000);
-    console.log(renderer.getClearColor);
+    threeEnv.scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight, 100, 1000);
+    threeEnv.scene.add(camera);
+    renderer.setClearColor(0xaaaaaaa);
+    
+  camera.position.set(0,500,500);
+  camera.lookAt(threeEnv.scene.position);
+
 
 // create the particle variables
-var particleCount = 1800,
+var particleCount = 10,
     particles = new THREE.Geometry(),
     pMaterial = new THREE.ParticleBasicMaterial({
-      color: 0xFFFFFF,
-      size: 20
+      color: 0xFF7700,
+      size: 25,
+	  map: THREE.ImageUtils.loadTexture(
+    'images/particle.png'
+  ),
+  blending: THREE.AdditiveBlending,
+  transparent: true
     });
 
 // now create the individual particles
@@ -52,44 +60,33 @@ var particleSystem = new THREE.ParticleSystem(
 
 // add it to the scene
 
-scene.add(particleSystem);
+//threeEnv.scene.add(particleSystem);
 
- /* 
-var geometry = new THREE.CubeGeometry(1,1,1);
- var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
- var cube = new THREE.Mesh( geometry, material ); 
-scene.add( cube );
+// add particules 
+setInterval(function(){
+	var pX = Math.random() * 400 - 250,
+      	pY = Math.random() * 400 - 250,
+      	pZ = Math.random() * 400 - 250,
+      	particle = new THREE.Vector3(pX, pY, pZ);
 
-var geometry = new THREE.Geometry(); geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) ); geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) ); geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) ); geometry.faces.push( new THREE.Face3( 0, 1, 2 ) ); geometry.computeBoundingSphere();
+  // add it to the geometry
+    particleSystem.dynamic = true;
+  particleSystem.geometry.vertices.push(particle);
+    particleSystem.geometry.verticesNeedUpdate = true;
 
- var material = new THREE.ParticleSystemMaterial( { color: 0x00ff00 } );
-var particle = new THREE.ParticleSystem(geometry, material); 
- var particle = new THREE.Particle(new THREE.ParticleCanvasMaterial({
-    
-    color : 0xff7000,
-    opacity : 1,
-   
-    program : function (context){
-    context.beginPath();
-    context.arc(0,0,1,0,Math.PI * 2, true);
-    context.closePath();
-    context.fill();
-}}));    particle.position.x = 0;
-    particle.position.y = 0;
-    particle.position.z = 0;
-    particle.scale.x = particle.scale.y = 10;
-    scene.add(particle);
-    camera.lookAt(particle);*/
+  console.log('adding particle '+particles.vertices.length);
+  },100);
+//
 
-    camera.position.z = 5;
+        setTimeout(function(){threeEnv.scene.add(particleSystem);},3000);
 
-    console.log(scene);    
+    console.log(threeEnv.scene);    
 threeEnv.render = function (){
-requestAnimationFrame(threeEnv.render);
+    requestAnimationFrame(threeEnv.render);
 particleSystem.rotation.y += 0.01;
-	renderer.render (scene, camera);
-
-	console.log('rendering: '+ renderer);
+particleSystem.dynamic = true;
+  particleSystem.geometry.verticesNeedUpdate = true;
+	renderer.render (threeEnv.scene, camera);
 
 };
     threeEnv.getCanvas = function () {
