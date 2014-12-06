@@ -10,6 +10,5 @@
 
 angular.module('test3App')
 .controller('MainCtrl', function ($scope) {
-    console.log('hello');
     $scope.text = 'Hello World!';
   });
