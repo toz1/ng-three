@@ -19,7 +19,7 @@ angular.module('test3App')
 
     var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight, 1, 5000);
     threeEnv.scene.add(camera);
-    renderer.setClearColor(0xaaaaaaa);
+    renderer.setClearColor(0xdddddd);
 
     camera.position.set(0, 0, -1000);
     console.log(threeEnv.scene.position);
@@ -27,13 +27,13 @@ angular.module('test3App')
 
 
 // create the particle variables
-    var particleCount = 10,
-      particles = new THREE.Geometry(),
+    var particleCount = 4,
+      pGeometry = new THREE.Geometry(),
       pMaterial = new THREE.PointCloudMaterial({
-        color: 0xffffff,
-        size: 2500,
+        color: 0xfffffa,
+        size: 400,
         map: THREE.ImageUtils.loadTexture(
-          'images/particle.png'
+          'images/particle2.png'
         ),
         blending: THREE.AdditiveBlending,
         transparent: true
@@ -44,21 +44,21 @@ angular.module('test3App')
 
       // create a particle with random
       // position values, -250 -> 250
-      var pX = Math.random() * 500 - 250,
-        pY = Math.random() * 500 - 250,
-        pZ = Math.random() * 500 - 250,
+      //var pX = Math.random() * 500 - 250,
+       // pY = Math.random() * 500 - 250,
+       // pZ = Math.random() * 500 - 250,
 
-        particle = new THREE.Vector3(pX, pY, 4);
+       var geom = new THREE.Vector3(-2000, 1000, 2000);
 
 
 
       // add it to the geometry
-      particles.vertices.push(particle);
+      pGeometry.vertices.push(geom);
     }
 
 // create the particle system
     var ptCloud = new THREE.PointCloud(
-      particles,
+      pGeometry,
       pMaterial);
 
       ptCloud.position.set(0, 0, 2000);
@@ -73,7 +73,7 @@ angular.module('test3App')
       requestAnimationFrame(threeEnv.render);
       //ptCloud.rotation.y += 0.01;
       ptCloud.dynamic = true;
-      ptCloud.geometry.vertices[0].x += 1;
+      //ptCloud.geometry.vertices[0].x += 1;
       ptCloud.geometry.verticesNeedUpdate = true;
       renderer.render(threeEnv.scene, camera);
 
@@ -83,13 +83,72 @@ angular.module('test3App')
     };
 
     threeEnv.getCanvas().addEventListener('mousemove', function(e){
-      ptCloud.geometry.vertices[1].x = (-e.clientX+(window.innerWidth / 2))*10;
-      ptCloud.geometry.vertices[1].y = (-e.clientY+(window.innerHeight / 2))*10;
+     // ptCloud.geometry.vertices[0].x = (-e.clientX+(window.innerWidth / 2))*10;
+      // ptCloud.geometry.vertices[0].y = (-e.clientY+(window.innerHeight / 2))*10;
 
-      console.log(e.clientX);
+       ptCloud.geometry.vertices[0].x = 0;
+       ptCloud.geometry.vertices[0].y = 0;
+
+    //  console.log(e.clientX);
     });
     threeEnv.render();
-    console.log(threeEnv);
+
+
+
+    //animation
+
+    init();
+    animate();
+
+    function init() {
+      /*var tween1 = new TWEEN.Tween( { x: 0, y: 0 , z: 10} )
+        .to( { x: 210 }, 400 )
+        .easing( TWEEN.Easing.Elastic.InOut )
+        .onUpdate( function () {
+
+          //ptCloud.geometry.vertices[1].x = this.x;
+          //ptCloud.geometry.vertices[1].y = this.y;
+
+        } )
+        .start().repeat(Infinity).yoyo(true);
+
+
+      var tween2 = new TWEEN.Tween( { x: 0, y: 0 } )
+        .to( { x: -210 }, 400 )
+        .easing( TWEEN.Easing.Elastic.InOut )
+        .onUpdate( function () {
+
+          //ptCloud.geometry.vertices[2].x = this.x;
+          //ptCloud.geometry.vertices[2].y = this.y;
+
+        } )
+        .start().repeat(Infinity).yoyo(true);*/
+
+      var tweenFunction = function(){
+      var tween3 = new TWEEN.Tween( { x: 0, y: 0 } )
+        .to( { x: 1000,  y: 0}, 1000 )
+        .easing( TWEEN.Easing.Elastic.InOut )
+        .onUpdate( function () {
+
+          ptCloud.geometry.vertices[3].x = this.x;
+          ptCloud.geometry.vertices[3].y = this.y;
+
+        })
+
+        .start().repeat(1000).yoyo(true).onComplete(function(){
+          console.log('restart');
+          tween3.start();});
+
+    }();}
+
+    function animate(time) {
+
+      requestAnimationFrame( animate ); // js/RequestAnimationFrame.js needs to be included too.
+      TWEEN.update(time);
+
+    }
+
+
     return threeEnv;
 
   });
