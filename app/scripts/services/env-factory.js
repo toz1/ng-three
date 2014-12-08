@@ -31,7 +31,7 @@ angular.module('test3App')
       pGeometry = new THREE.Geometry(),
       pMaterial = new THREE.PointCloudMaterial({
         color: 0xfffffa,
-        size: 400,
+        size: 2000,
         map: THREE.ImageUtils.loadTexture(
           'images/particle2.png'
         ),
@@ -42,11 +42,6 @@ angular.module('test3App')
 // now create the individual particles
     for (var p = 0; p < particleCount; p++) {
 
-      // create a particle with random
-      // position values, -250 -> 250
-      //var pX = Math.random() * 500 - 250,
-       // pY = Math.random() * 500 - 250,
-       // pZ = Math.random() * 500 - 250,
 
        var geom = new THREE.Vector3(-2000, 1000, 2000);
 
@@ -101,13 +96,13 @@ angular.module('test3App')
     animate();
 
     function init() {
-      /*var tween1 = new TWEEN.Tween( { x: 0, y: 0 , z: 10} )
+      var tween1 = new TWEEN.Tween( { x: 0, y: 0 , z: 10} )
         .to( { x: 210 }, 400 )
         .easing( TWEEN.Easing.Elastic.InOut )
         .onUpdate( function () {
 
-          //ptCloud.geometry.vertices[1].x = this.x;
-          //ptCloud.geometry.vertices[1].y = this.y;
+          ptCloud.geometry.vertices[1].x = this.x;
+          ptCloud.geometry.vertices[1].y = this.y;
 
         } )
         .start().repeat(Infinity).yoyo(true);
@@ -118,11 +113,11 @@ angular.module('test3App')
         .easing( TWEEN.Easing.Elastic.InOut )
         .onUpdate( function () {
 
-          //ptCloud.geometry.vertices[2].x = this.x;
-          //ptCloud.geometry.vertices[2].y = this.y;
+          ptCloud.geometry.vertices[2].x = this.x;
+          ptCloud.geometry.vertices[2].y = this.y;
 
         } )
-        .start().repeat(Infinity).yoyo(true);*/
+        .start().repeat(Infinity).yoyo(true);
 
       var tweenFunction = function(){
       var tween3 = new TWEEN.Tween( { x: 0, y: 0 } )
@@ -135,7 +130,7 @@ angular.module('test3App')
 
         })
 
-        .start().repeat(1000).yoyo(true).onComplete(function(){
+        .start().repeat(10).yoyo(true).onComplete(function(){
           console.log('restart');
           tween3.start();});
 
